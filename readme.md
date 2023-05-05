@@ -1,5 +1,5 @@
 Fastest-Discord-Token-Checker!
-Checkes 100 Tokens Under 0.5s.
+Checks 100 Tokens Under 0.5s.
 
 Star this repo for regular updates and more tools!
 
