@@ -8,6 +8,7 @@ Features:
 ~Multi Threaded
 ~Proxy Support At 30 Stars.
 
-Thank you for using my tool, for src check the src folder.
-For direct use directly run the exe file.
+Thank you for using my tool
+
+Star the repo for more tools!
 
