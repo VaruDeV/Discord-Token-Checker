@@ -61,7 +61,7 @@ def check_tokens(tokens, print_lock):
         headers = {'Authorization': token}
 
         try:
-            response = get('https://discord.com/api/v6/users/@me', headers=headers)
+            response = requests.get('https://discord.com/api/v6/users/@me', headers=headers)
             if response.status_code == 200:
                 print_lock.acquire()
                 if email and password:
@@ -72,29 +72,24 @@ def check_tokens(tokens, print_lock):
 
                 success_tokens.append(token)
 
-
-
-            def variant2(token):
-                response = get('https://discord.com/api/v6/users/@me', headers=headers)
-                if "You need to verify your account in order to perform this action." in str(response.content) or "401: Unauthorized" in str(response.content):
+            if response.status_code == 401:
                     print_lock.acquire()
                     print(f"{Fore.RED}[INVALID] {token}{Style.RESET_ALL}")
                     print_lock.release()
-                    with open('failed.txt', 'a') as f:
-                        f.write(token + '\n')
 
-                else:
-                    print_lock.acquire()
-                print(f"{Fore.YELLOW}[ERROR {response.status_code}] {token}{Style.RESET_ALL}")
-                print_lock.release()
+
+            else:
                 with open('failed.txt', 'a') as f:
                     f.write(token + '\n')
 
         except Exception as e:
             print_lock.acquire()
-            print(f"{Fore.YELLOW}[ERROR] {token}: {e}{Style.RESET_ALL}")
+            print(f"{Fore.YELLOW} {token}: {e}{Style.RESET_ALL}")
             print_lock.release()
-            with open('failed.txt', 'a') as f:
+
+
+
+    with open('failed.txt', 'a') as f:
                 f.write(token + '\n')
 
             
